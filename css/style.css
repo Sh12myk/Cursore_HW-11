@@ -117,13 +117,13 @@
     width: 5em;
     height: 2em;
     border-radius: 50%;
-    background: firebrick;
+    background: slategray;
 }
 .shadow .shadow-l {
-    background: darkred;
+    background: slategray;
 }
 .shadow .shadow-r {
-    background: darkred;
+    background: slategray;
 }
 @keyframes shadow-l-n {
     0%, 50% {
