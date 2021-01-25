@@ -1,163 +1,221 @@
-:root {
-    --color: rgb(23, 107, 180);
-    --c-ligth: white;
-    --c-transparent: rgba(255, 255, 255, 0.3);
-    --ff: sans-serif;
-    --normal-size: 1.25em;
-    --little-size: 0.5em;
+/*Used material -
+title - http://www.sitepoint.com/css3-starwars-scrolling-text/
+footer - https://codepen.io/r4ms3s/pen/gajVBG*/
 
-    --c-l-blue: rgb(36, 113, 202);
-    --c-l-red: rgb(202, 36, 36);
-    --c-l-lime: rgb(69, 235, 19);
-    --c-l-purple: rgb(219, 34, 219);
-}
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+
+* { padding: 0; margin: 0; }
+.title-move
+{
+    width: 100%;
+    height: 100%;
+    font-family: "Droid Sans", arial, verdana, sans-serif;
+    font-weight: 700;
+    color: #ff6;
+    background-color: #000;
+    overflow: hidden;
 }
 
-.main {
-    margin: 5em;
-    display: grid;
-    grid-template-rows: repeat(3, 4em);
-    gap: 1em;
-    justify-content: end;
-    align-items: end;
-    width: 80%;
-    height: 200vh;
-    padding: 1em 0;
-
-}
-.box_sword {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-}
-.laser {
-    width: 0em;
-    height: 3em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: whitesmoke;
-    transition: 0.75s ease-out;
-    border-radius: 5em;
-
-}
-
-.laser_b {
-    box-shadow: 0 0 1em var(--c-l-blue), 0 0 1em var(--c-l-blue),
-    0 0 3em var(--c-l-blue), 0 0 4em var(--c-l-blue),
-    inset 0 0 1em var(--c-l-blue), inset 0 0 2em var(--c-l-blue);
-}
-.laser_r {
-    box-shadow: 0 0 1em var(--c-l-red), 0 0 1em var(--c-l-red),
-    0 0 3em var(--c-l-red), 0 0 4em var(--c-l-red), inset 0 0 1em var(--c-l-red),
-    inset 0 0 2em var(--c-l-red);
-}
-
-.laser_p {
-    box-shadow: 0 0 1em var(--c-l-purple), 0 0 1em var(--c-l-purple),
-    0 0 3em var(--c-l-purple), 0 0 4em var(--c-l-purple),
-    inset 0 0 1em var(--c-l-purple), inset 0 0 2em var(--c-l-purple);
-}
-
-.laser_on {
-    width:50em;
-}
-
-.box {
+p#start
+{
     position: relative;
-    width: 10em;
-    height: 3em;
+    width: 16em;
+    font-size: 200%;
+    font-weight: 400;
+    margin: 20% auto;
+    color: #4ee;
+    opacity: 0;
+    z-index: 1;
+    animation: intro 2s ease-out;
+}
+
+
+@keyframes intro {
+    0% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+h1
+{
+    position: absolute;
+    width: 2.6em;
+    left: 50%;
+    top: 25%;
+    font-size: 10em;
+    text-align: center;
+    margin-left: -1.3em;
+    line-height: 0.8em;
+    letter-spacing: -0.05em;
+    color: #000;
+    text-shadow: -2px -2px 0 #ff6, 2px -2px 0 #ff6, -2px 2px 0 #ff6, 2px 2px 0 #ff6;
+    opacity: 0;
+    z-index: 1;
+    animation: logo 5s ease-out 2.5s;
+}
+
+h1 sub
+{
+    display: block;
+    font-size: 0.3em;
+    letter-spacing: 0;
+    line-height: 0.8em;
+}
+
+
+
+@keyframes logo {
+    0% { transform: scale(1); opacity: 1; }
+    50% { opacity: 1; }
+    100% { transform: scale(0.1); opacity: 0; }
+}
+
+/* the interesting 3D scrolling stuff */
+#titles
+{
+    position: absolute;
+    width: 18em;
+    height: 50em;
+    bottom: 0;
+    left: 50%;
+    margin-left: -9em;
+    font-size: 350%;
+    text-align: justify;
+    overflow: hidden;
+    -webkit-transform-origin: 50% 100%;
+    -moz-transform-origin: 50% 100%;
+    -ms-transform-origin: 50% 100%;
+    -o-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    -webkit-transform: perspective(300px) rotateX(25deg);
+    -moz-transform: perspective(300px) rotateX(25deg);
+    -ms-transform: perspective(300px) rotateX(25deg);
+    -o-transform: perspective(300px) rotateX(25deg);
+    transform: perspective(300px) rotateX(25deg);
+}
+
+#titles:after
+{
+    position: absolute;
+    content: ' ';
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 60%;
+    background-image: linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+#titles p
+{
+    text-align: justify;
+    margin: 0.8em 0;
+}
+
+#titles p.center
+{
+    text-align: center;
+}
+
+#titles a
+{
+    color: #ff6;
+    text-decoration: underline;
+}
+
+#titlecontent
+{
+    position: absolute;
+    top: 100%;
+    animation: scroll 100s linear 4s infinite;
+}
+
+
+@keyframes scroll {
+    0% { top: 100%; }
+    100% { top: -170%; }
+}
+
+.swords{
+    min-height: 300px;
+    height: 20vh;
+}
+#toggle {
+    opacity: 0;
+    position: absolute;
+    top: 30px;
+}
+.swords__toggle{
     display: flex;
-    justify-content: center;
-    padding-top: 1.5em;
-    background-color: rgb(247, 247, 247);
-    border-radius: 0.25em;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-
-&::before {
-     content: "";
-     display: block;
-     position: absolute;
-     bottom: 0.25em;
-     left: -0.2em;
-     width: .5em;
-     height: 3em;
-     background-color: black;
-     box-shadow: 1.5em 0 0 black, 3em 0 0 black;
-     border-top-right-radius: 100%;
-     border-top-left-radius: 100%;
- }
-&::after {
-     content: "";
-     display: block;
-     position: absolute;
-     top: -2em;
-     left: 0;
-     width: 3em;
-     height: 2em;
-     background-color: black;
-     border-radius:.25em;
-     box-shadow: 0em 5.5em 0 .25em  black
- }
+    align-items: center;
 }
-.btn {
-    width: 1.25em;
-    height: 1.25em;
-    background-color: rgb(241, 122, 101);
-    border: 0.2em solid rgb(163, 163, 163);
-    border-radius: 50%;
+.button {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    max-width: 300px;
+    min-width: 150px;
+    min-height: 150px;
+    max-height: 300px;
     cursor: pointer;
-    transition: 0.2s;
-
-&:active {
-     background-color: rgb(173, 72, 69);
-     transform: scale(0.95);
- }
+    z-index: 1;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-#toggle:checked~ .red{
-    transform: rotate(45deg);
+.button>span,
+.button>span::before,
+.button>span::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, slategray 20%, black 10% 30%, white 30%);
+    transition-duration: .25s;
 }
 
-#toggle:checked~.blue {
+.button>span::before {
+    content: '';
+    top: -15px;
+    background: linear-gradient(270deg, slategray 20%, black 10% 30%, white 30%);
+}
+
+.button>span::after {
+    content: '';
+    top: 15px;
+    background: linear-gradient(270deg, slategray 20%, black 10% 30%, white 30%);
+}
+
+.button>span:hover{
+    box-shadow: 0 0 4px 2px blueviolet;
+}
+.button>span:hover::before{
+    box-shadow: 0 0 4px 2px firebrick;
+}
+.button>span:hover::after {
+    box-shadow: 0 0 4px 2px green;
+}
+
+#toggle:checked~.button>span {
+    transform: rotate(-1032deg);
+    transition: all 1.2s ease-in-out;
+    background: linear-gradient(270deg, lightgray 20%, black 10% 30%, white 30%);
+    box-shadow: 0 0 4px 2px blueviolet;
+}
+
+#toggle:checked~.button>span::before {
     content: none;
+    box-shadow: 0 0 4px 2px firebrick;
 }
 
-#toggle:checked~ .purple {
-
-    transform: rotate(90deg);
+#toggle:checked~.button>span::after {
+    top: 0;
+    transition: all 1.2s ease-in-out;
+    box-shadow: 0 0 4px 2px green;
+    transform: rotate(450deg);
 }
-
-
-
-
-
-
-
-
-
-
-
 @keyframes m-left {
     0%, 50% {
         -webkit-transform: rotate(0) translate(0);
@@ -181,8 +239,6 @@
         transform: rotate(0) translateX(0)
     }
 }
-/*@keyframes left
-@keyframes right*/
 .star-l{
     animation: m-left .7s ease-in-out infinite alternate;
     transform-origin: center top;
